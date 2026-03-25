@@ -636,3 +636,463 @@ export default function App() {
     </NavigationContainer>
   );
 }
+app/screens/
+
+import { View, Text, Button, ScrollView } from "react-native";
+
+export default function HomeScreen({ navigation }) {
+  return (
+    <ScrollView style={{ padding: 20 }}>
+      <Text style={{ fontSize: 28, fontWeight: "bold" }}>AvicolaX</Text>
+      <Text style={{ marginBottom: 20 }}>El futuro avícola, hoy.</Text>
+
+      <Button title="Iniciar Sesión" onPress={() => navigation.navigate("Login")} />
+      <Button title="Registrarse" onPress={() => navigation.navigate("Registro")} />
+      <Button title="Onboarding" onPress={() => navigation.navigate("Onboarding")} />
+
+      <Text style={{ marginTop: 30, fontSize: 20 }}>Módulos:</Text>
+
+      <Button title="Chat General" onPress={() => navigation.navigate("Chat")} />
+      <Button title="Campo Técnico" onPress={() => navigation.navigate("Campo")} />
+      <Button title="Checklist Bioseguridad" onPress={() => navigation.navigate("Checklist")} />
+      <Button title="IA por Texto" onPress={() => navigation.navigate("IATexto")} />
+      <Button title="IA por Imagen" onPress={() => navigation.navigate("IAImagen")} />
+      <Button title="Reproductoras" onPress={() => navigation.navigate("Reproductoras")} />
+      <Button title="Ayuda" onPress={() => navigation.navigate("Ayuda")} />
+      <Button title="Necropsia AR" onPress={() => navigation.navigate("NecropsiaAR")} />
+    </ScrollView>
+  );
+}
+
+import { useState } from "react";
+import { View pass);import { View, TextInput, Button, Text } from "react-native";
+      alert("Inicio de sesión exitoso");
+      navigation.navigate("Home");
+    } catch (e) {
+      alert("Error al iniciar sesión");
+    }
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontWeight: "bold", fontSize: 26 }}>Iniciar Sesión</Text>
+
+      <TextInput placeholder="Correo" value={email} onChangeText={setEmail} />
+      <TextInput placeholder="Contraseña" secureTextEntry value={pass} onChangeText={setPass} />
+
+      <Button title="Entrar" onPress={entrar} />
+      <Button title="Registrarme" onPress={() => navigation.navigate("Registro")} />
+    </View>
+  );
+}
+import { login } from "../services/auth";
+
+export default function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  const entrar = async () => {
+    try {
+
+import { useState } from "react";
+import { View, Text, TextInput, Button } from "react-native";
+import { register } from "../services/auth";
+
+ return (export default function RegistroScreen({ navigation }) {
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26, fontWeight: "bold" }}>Crear Cuenta</Text>
+
+      <TextInput placeholder="Correo" value={email} onChangeText={setEmail} />
+      <TextInput placeholder="Contraseña" secureTextEntry value={pass} onChangeText={setPass} />
+
+      <Button title="Registrar" onPress={registrar} />
+    </View>
+  );
+}
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  const registrar = async () => {
+    try {
+      await register(email, pass);
+      alert("Cuenta creada");
+      navigation.navigate("Login");
+    } catch (e) {
+      alert("Error registrando usuario");
+    }
+  };
+
+
+import { View, Text, ScrollView } from "react-native";
+
+export default function OnboardingScreen() {
+  const pasos = [
+    "1. Crea tu cuenta con tu correo.",
+    "2. Completa tu perfil.",
+    "3. Instala la app móvil con QR.",
+    "4. Registra tu primer reporte.",
+    "5. Explora IA, chat y checklist.",
+    "6. Revisa tus naves desde panel web."
+  ];
+
+  return (
+    <ScrollView style={{ padding: 20 }}>
+      <Text style={{ fontSize: 30, fontWeight: "bold" }}>Bienvenido</Text>
+      <Text style={{ marginBottom: 20 }}>Comienza tu experiencia AvicolaX</Text>
+
+      {pasos.map((p, i) => (
+        <Text key={i} style={{ marginVertical: 10 }}>
+          ✅ {p}
+        </Text>
+      ))}
+    </ScrollView>
+  );
+}
+
+import ChatSalaScreen from "./ChatSalaScreen";
+
+export default function ChatScreen(props) {
+  return <ChatSalaScreen {...props} route={{ params: { room: "general" } }} />;
+}
+
+import { useEffect, useState } from "react";
+import { View, ScrollView, TextInput, Button } from "react-native";
+import { sendTextMessage, listenRoom } from "../services/chatService";
+import { pickImageAndSend } from "../services/storageService";
+import ChatBubble from "../components/ChatBubble";
+import ImageMessage from "../components/ImageMessage";
+
+export default function ChatSalaScreen({ route }) {
+  const { room } = route.params;
+  const [msgs, setMsgs] = useState([]);
+  const [txt, setTxt] = useState("");
+  const user = "Usuario"; // Integrar con auth real
+
+  useEffect(() => {
+    const stop = listenRoom(room, setMsgs);
+    return stop;
+  }, []);
+
+  return (
+    <View style={{ flex: 1, padding: 10 }}>
+      <ScrollView style={{ flex: 1 }}>
+        {msgs.map((m) =>
+          m.type === "image" ? (
+            <ImageMessage key={m.id} message={m} />
+          ) : (
+            <ChatBubble key={m.id} message={m} isOwn={m.user === user} />
+          )
+        )}
+      </ScrollView>
+
+      <TextInput
+        placeholder="Mensaje..."
+        value={txt}
+        onChangeText={setTxt}
+        style={{ backgroundColor: "#fff", padding: 10, borderRadius: 6 }}
+      />
+
+      <Button
+        title="Enviar Texto"
+        onPress={() => {
+          sendTextMessage(room, user, txt);
+          setTxt("");
+        }}
+      />
+
+      <Button title="Enviar Imagen" onPress={() => pickImageAndSend(room, user)} />
+    </View>
+  );
+}
+
+import { useState, useEffect } from "react";
+import { View, Text, Button } from "react-native";
+import { getUbicacion } from "../services/gps";
+
+export default function TecnicoCampoScreen() {
+  const [pos, setPos] = useState(null);
+
+  useEffect(() => {
+    getUbicacion().then(setPos);
+  }, []);
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26 }}>Técnico en Campo</Text>
+
+      {pos ? (
+        <>
+          <Text>Latitud: {pos.latitude}</Text>
+          <Text>Longitud: {pos.longitude}</Text>
+        </>
+      ) : (
+        <Text>Obteniendo ubicación...</Text>
+      )}
+
+      <Button title="Tomar nueva ubicación" onPress={() => getUbicacion().then(setPos)} />
+    </View>
+  );
+}
+
+import { View, Text, Switch, Button } from "react-native";
+import { useState } from "react";
+
+const items = [
+  "Arco sanitario",
+  "Cambio de ropa",
+  "Desinfección de botas",
+  "Lavado de manos",
+  "Equipo de protección",
+  "Ingreso autorizado"
+];
+
+export default function ChecklistBioseguridadScreen() {
+  const [state, setState] = useState({});
+
+  const toggle = (k) => setState({ ...state, [k]: !state[k] });
+
+  const guardar = () => {
+    console.log(state);
+    alert("Checklist guardado");
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26 }}>Checklist Bioseguridad</Text>
+
+      {items.map((i) => (
+        <View key={i} style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text>{i}</Text>
+          <Switch value={state[i]} onValueChange={() => toggle(i)} />
+        </View>
+      ))}
+
+      <Button title="Guardar Checklist" onPress={guardar} />
+    </View>
+  );
+}
+
+import { View } from "react-native";
+import { AR } from "expo-ar";
+import { GLView } from "expo-gl";
+import { Renderer } from "expo-three";
+import { THREE } from "expo-three";
+
+export default function NecropsiaARScreen() {
+  let scene, camera, renderer;
+
+  const onContextCreate = async (gl) => {
+    AR.setPlaneDetection(AR.PlaneDetectionTypes.Horizontal);
+
+    renderer = new Renderer({ gl });
+    renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+
+    scene = new THREE.Scene();
+    camera = new THREE.Camera();
+    scene.add(camera);
+
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(0.1, 32, 32),
+      new THREE.MeshBasicMaterial({ color: "#4ADE80" })
+    );
+
+    sphere.position.z = -1;
+    scene.add(sphere);
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+      gl.endFrameEXP();
+    };
+
+    animate();
+  };
+
+  return <GLView style={{ flex: 1 }} onContextCreate={onContextCreate} />;
+}
+
+import { useState } from "react";
+import { View, TextInput, Button, Text } from "react-native";
+import { consultarIA } from "../services/iaTexto";
+
+export default function IAPorTextoScreen() {
+  const [txt, setTxt] = useState("");
+  const [res, setRes] = useState("");
+
+  const enviar = async () => {
+    const r = await consultarIA(txt);
+    setRes(r);
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26, fontWeight: "bold" }}>IA Avícola (Texto)</Text>
+
+      <TextInput
+        placeholder="Describe el caso clínico..."
+        value={txt}
+        onChangeText={setTxt}
+        style={{
+          height: 120,
+          backgroundColor: "#fff",
+          padding: 10,
+          marginVertical: 20,
+          borderRadius: 8,
+        }}
+        multiline
+      />
+
+      <Button title="Consultar IA" onPress={enviar} />
+      <Text style={{ marginTop: 20 }}>{res}</Text>
+    </View>
+  );
+}
+
+import { useState } from "react";
+import { View, Button, Image, Text } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { analizarImagen } from "../services/iaImagen";
+
+export default function IAPorImagenScreen() {
+  const [img, setImg] = useState(null);
+  const [res, setRes] = useState("");
+
+  const tomarFoto = async () => {
+    const r = await ImagePicker.launchCameraAsync();
+    if (!r.canceled) {
+      setImg(r.assets[0].uri);
+      const x = await analizarImagen(r.assets[0].uri);
+      setRes(x);
+    }
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Button title="Tomar foto" onPress={tomarFoto} />
+
+      {img && (
+        <>
+          <Image source={{ uri: img }} style={{ width: 250, height: 250, marginTop: 20 }} />
+          <Text style={{ marginTop: 20 }}>{res}</Text>
+        </>
+      )}
+    </View>
+  );
+}
+
+import { View, Text, Button } from "react-native";
+
+export default function ReproductorasHomeScreen({ navigation }) {
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26 }}>Reproductoras</Text>
+
+      <Button title="Registro de Postura" onPress={() => navigation.navigate("RegistroPostura")} />
+      <Button title="Fertilidad" onPress={() => navigation.navigate("Fertilidad")} />
+      <Button title="Incubadora" onPress={() => navigation.navigate("Hatchery")} />
+      <Button title="Pesaje Semanal" onPress={() => navigation.navigate("Pesos")} />
+    </View>
+  );
+}
+
+import { useState } from "react";
+import { View, Text, TextInput, Button } from "react-native";
+import { guardarPostura } from "../services/reproductoras";
+
+export default function RegistroPosturaScreen() {
+  const [p, setP] = useState("");
+
+  const guardar = async () => {
+    await guardarPostura(p);
+    alert("Postura registrada");
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26 }}>Registro de Postura (%)</Text>
+
+      <TextInput value={p} onChangeText={setP} placeholder="Ej: 92" />
+
+      <Button title="Guardar" onPress={guardar} />
+    </View>
+  );
+}
+
+import { View, Text, TextInput, Button } from "react-native";
+import { useState } from "react";
+import { guardarFertilidad } from "../services/reproductoras";
+
+export default function FertilidadScreen() {
+  const [f, setF] = useState("");
+
+  const guardar = async () => {
+    await guardarFertilidad(f);
+    alert("Fertilidad registrada");
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26 }}>Fertilidad (%)</Text>
+      <TextInput value={f} onChangeText={setF} placeholder="Ej: 88" />
+      <Button title="Guardar" onPress={guardar} />
+    </View>
+  );
+}
+
+import { useState } from "react";
+import { View, Text, TextInput, Button } from "react-native";
+import { guardarNacimientos } from "../services/reproductoras";
+
+export default function HatcheryScreen() {
+  const [n, setN] = useState("");
+
+  const guardar = async () => {
+    await guardarNacimientos(n);
+    alert("Nacimientos registrados");
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26 }}>Nacimientos</Text>
+      <TextInput value={n} onChangeText={setN} placeholder="Ej: 8400" />
+      <Button title="Guardar" onPress={guardar} />
+    </View>
+  );
+}
+
+import { useState } from "react";
+import { View, Text, TextInput, Button } from "react-native";
+import { guardarPesaje } from "../services/reproductoras";
+
+export default function PesoScreen() {
+  const [peso, setPeso] = useState("");
+
+  const guardar = async () => {
+    await guardarPesaje(peso);
+    alert("Pesaje registrado");
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 26 }}>Pesaje Semanal (g)</Text>
+      <TextInput value={peso} onChangeText={setPeso} placeholder="Ej: 1450" />
+      <Button title="Guardar" onPress={guardar} />
+    </View>
+  );
+}
+
+import { ScrollView, Text, Button } from "react-native";
+
+export default function AyudaScreen({ navigation }) {
+  return (
+    <ScrollView style={{ padding: 20 }}>
+      <Text style={{ fontSize: 28, fontWeight: "bold" }}>Centro de Ayuda</Text>
+
+      <Button title="Primeros Pasos" onPress={() => navigation.navigate("Onboarding")} />
+      <Button title="Checklist Bioseguridad" onPress={() => navigation.navigate("Checklist")} />
+      <Button title="IA Texto" onPress={() => navigation.navigate("IATexto")} />
+      <Button title="IA Imagen" onPress={() => navigation.navigate("IAImagen")} />
+      <Button title="Reproductoras" onPress={() => navigation.navigate("Reproductoras")} />
+    </ScrollView>
+  );
+}
