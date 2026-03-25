@@ -1,0 +1,465 @@
+echo "# Avi-cul" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/20262025/Avi-cul.git
+git push -u origin main
+
+{
+  "name": "avicolax-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "14.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}
+``
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    unoptimized: true
+  }
+};
+
+module.exports = nextConfig;
+
+import CTASection from "@/components/CTASection";
+import FeatureGrid from "@/components/FeatureGrid";
+
+export default function Home() {
+  return (
+    <div className="landing-container">
+
+      <section className="hero">
+        <div className="hero-content">
+          <h1>AvicolaX</h1>
+          <p className="subtitle">
+            Inteligencia Artificial · IoT · Epidemiología · Automatización · RA · Blockchain
+          </p>
+          /demo
+            <button className="btn-primary">Solicitar Demostración</button>
+          </a>
+        </div>
+      </section>
+
+      <section className="section dark">
+        <h2>Transformando la industria avícola</h2>
+        <p className="section-desc">
+          AvicolaX es el ecosistema integral diseñado para modernizar cada proceso de tu integradora:
+          producción, sanidad, bienestar animal, incubación, reproductoras, finanzas, bioseguridad,
+          capacitación, IoT y análisis avanzado con IA.
+        </p>
+      </section>
+
+      <FeatureGrid />
+
+<CTASection />
+
+    </div>
+  );
+}
+
+export default function Producto() {
+  return (
+>    <div className="page">
+      <p className="section-desc">
+        Conoce cada módulo que forma parte de AvicolaX, la plataforma más poderosa para
+        integradoras avícolas modernas.
+      </p>
+
+      <div className="product-grid">
+
+        <div className="product-card">
+          <h3>Monitoreo IoT</h3>
+          <p>NH₃, CO₂, temperatura, humedad, alimento y agua en tiempo real.</p>
+        </div>
+
+        <div className="product-card">
+          <h3>IA Predictiva</h3>
+          <p>Predicción de brotes, mortalidad, CA y riesgo sanitario.</p>
+        </div>
+
+        <div className="product-card">
+          <h3>Digital Twin 3D</h3>
+          <p>Vista 3D de la nave, sensores y riesgos estructurales.</p>
+        </div>
+
+        <div className="product-card">
+          <h3>App Técnica</h3>
+          <p>GPS, checklist, necropsias con IA y RA.</p>
+        </div>
+
+        <div className="product-card">
+          <h3>Incubación</h3>
+          <p>Setter, hatcher, curvas térmicas, nacimientos.</p>
+        </div>
+
+        <div className="product-card">
+          <h3>Reproductoras</h3>
+          <p>Postura, fertilidad, calibraciones, pesajes.</p>
+        </div>
+
+        <div className="product-card">
+          <h3>Auditoría SENASICA</h3>
+          <p>Checklist oficial digitalizada con evidencias.</p>
+        </div>
+
+        <div className="product-card">
+          <h3>Blockchain Sanitario</h3>
+          <p>Trazabilidad inviolable de vacunación y eventos.</p>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+
+export default function Contacto() {
+  return (
+    <div className="page">
+      <h1>Contacto Comercial</h1>
+      <p className="section-desc">Estamos listos para ayudarte.</p>
+
+      <form className="contact-form">
+        <input type="text" placeholder="Nombre completo" />
+        <input type="email" placeholder="Correo empresarial" />
+        <input type="text" placeholder="Empresa / Integradora" />
+        <textarea placeholder="Mensaje"></textarea>
+        <button className="btn-primary">Enviar mensaje</button>
+      </form>
+    </div>
+  );
+}
+
+export default function Demo() {
+  return (
+    <div className="page">
+      <h1>Solicitar Demostración</h1>
+      <p className="section-desc">
+        Completa el formulario para agendar tu demo personalizada.
+      </p>
+
+      <form className="demo-form">
+        <input type="text" placeholder="Nombre" />
+        <input type="email" placeholder="Correo" />
+        <input type="text" placeholder="Empresa" />
+        <select>
+          <option>Selecciona tu rol</option>
+          <option>Director</option>
+          <option>Gerente Técnico</option>
+          <option>Veterinario</option>
+          <option>Técnico en Campo</option>
+        </select>
+        <button className="btn-primary">Solicitar Demo</button>
+      </form>
+    </div>
+  );
+}
+
+export default function Onboarding() {
+  const pasos = [
+    {
+      titulo: "1. Crear tu cuenta",
+      descripcion: "Regístrate con tu correo empresarial. Un administrador te asignará rol."
+    },
+    {
+      titulo: "2. Completar tu perfil",
+      descripcion: "Define empresa, nave, lote y rol operativo."
+    },
+    {
+      titulo: "3. Descargar la App",
+      descripcion: "Instala AvicolaX en tu smartphone vía QR o APK."
+    },
+    {
+      titulo: "4. Realizar tu primer reporte",
+      descripcion: "Registra mortalidad, fotos de necropsia y checklist."
+    }
+  ];
+
+  return (
+    <div className="page">
+      <h1>Bienvenido a AvicolaX</h1>
+      <p className="section-desc">Comienza en solo 4 pasos.</p>
+
+      <div className="onboarding-grid">
+        {pasos.map((p, idx) => (
+          <div key={idx} className="onboard-card">
+            <h2>{p.titulo}</h2>
+            <p>{p.descripcion}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Soporte() {
+  const faqs = [
+    {
+      q: "¿AvicolaX tiene costo?",
+      a: "No. Es completamente gratuito. Puedes patrocinar si deseas apoyar becas estudiantiles."
+    },
+    {
+      q: "¿Cómo funciona la IA?",
+      a: "Analiza imágenes, textos y variables ambientales para darte diagnósticos preliminares."
+    },
+    {
+      q: "¿Qué sensores se pueden usar?",
+      a: "NH₃, CO₂, temperatura, humedad, agua, alimento y cámaras térmicas."
+    }
+  ];
+
+  return (
+    <div className="page">
+      <h1>Soporte y Preguntas Frecuentes</h1>
+
+      <div className="faq-list">
+        {faqs.map((f, i) => (
+          <div key={i} className="faq-item">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Precios() {
+  return (
+    <div className="page">
+      <h1>Planes y Precios</h1>
+      <p className="section-desc">Uso gratuito. Patrocinios opcionales para becas estudiantiles.</p>
+
+      <div className="plans-grid">
+
+        <div className="plan">
+          <h2>✅ Plan Gratuito</h2>
+          <ul>
+            <li>App móvil</li>
+            <li>IA básica</li>
+            <li>Panel epidemiológico</li>
+            <li>Checklists, necropsias, reportes</li>
+          </ul>
+          <h3>$0 MXN</h3>
+        </div>
+
+        <div className="plan">
+          <h2>⭐ Patrocinador</h2>
+          <p>Aporta para becar estudiantes de bajos recursos.</p>
+          <ul>
+            <li>Acceso anticipado a módulos nuevos</li>
+            <li>Soporte prioritario</li>
+            <li>Tu logo en AvicolaX (opcional)</li>
+          </ul>
+          <h3>Aportación libre</h3>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default function HomeEN() {
+  return (
+    <div className="landing-container">
+      <section className="hero">
+        <h1>AvicolaX</h1>
+        <p className="subtitle">
+          AI · IoT · Epidemiology · Automation · AR · Blockchain
+        </p>
+      </section>
+
+      <section className="section dark">
+        <h2>The most advanced poultry technology platform</h2>
+        <p>All-in-one: AI, IoT, digital twin, incubation, breeders, finance, epidemiology.</p>
+      </section>
+    </div>
+  );
+}
+
+export default function HomePT() {
+  <h2>A plataforma avícola mais avançada</h2>  return (
+        <p>IA, IoT, reprodução, incubação, epidemiologia e muito mais.</p>
+      </section>
+    </div>
+  );
+}
+    <div className="landing-container">
+      <section className="hero">
+        <h1>AvicolaX</h1>
+        <p className="subtitle">
+          IA · IoT · Epidemiologia · Automação · RA · Blockchain
+        </p>
+      </section>
+
+      <section className="section dark">
+
+export default function Navbar() {
+  return (
+    <nav className="navbar">
+>      /
+        /soporteSoporte</a>
+        /onboardingOnboarding</a>
+        /demoDemo</a>
+      </div>
+    </nav>
+  );
+}
+        <img src="/logo.svg" width="40" />
+        <span>AvicolaX</span>
+      </a>
+
+      <div className="nav-links">
+        /Inicio</a>
+        /productoProducto</a>
+
+export default function Footer() {
+  return (
+    <footer className="footer">
+      <p>© {new Date().getFullYear()} AvicolaX — El futuro avícola, hoy.</p>
+    </footer>
+  );
+}
+
+export default function CTASection() {
+  return (
+    <section className="cta-section">
+      <h2>¿Listo para transformar tu operación avícola?</h2>
+      /demo
+        <button className="btn-primary">Solicitar Demo</button>
+      </a>
+    </section>
+  );
+}
+
+export default function FeatureGrid() {
+  const items = [
+    { title: "IA Predictiva", desc: "Anticipa brotes y riesgos antes de que ocurran." },
+    { title: "IoT Ambiental", desc: "Sensores NH₃, CO₂, temperatura y humedad." },
+    { title: "Digital Twin 3D", desc: "Visualización 3D en tiempo real de la nave." },
+    { title: "App Técnica PRO", desc: "RA, IA, GPS, checklist y necropsias." },
+    { title: "Incubación Avanzada", desc: "Setter, hatcher y curvas térmicas." },
+    { title: "Auditoría SENASICA", desc: "Digitalización total con evidencia." },
+  ];
+
+  return (
+    <section className="features-section">
+      <h2>Módulos Principales</h2>
+
+      <div className="features-grid">
+        {items.map((i, idx) => (
+          <div key={idx} className="feature-card">
+            <h3>{i.title}</h3>
+            <p>{i.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+:root {
+  --blue: #0a5aff;
+;  --green: #4ade80;
+  background: var(--green);
+  border: none;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* FEATURES */
+.features-grid,
+.product-grid,
+.plans-grid,
+.faq-list,
+.onboarding-grid {
+  display: grid;
+  gap: 20px;
+  padding: 30px;
+}
+
+/* CARDS */
+.product-card,
+.feature-card,
+.plan,
+.faq-item,
+.onboard-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--dark);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+  --dark: #0d0f12;
+  --light: #f1f5f9;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--light);
+  color: var(--dark);
+}
+
+.navbar {
+  background: var(--dark);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  color: white;
+}
+
+.nav-links a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+.hero {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('/hero.jpg') center/cover no-repeat;
+}
+
+.hero-content h1 {
+  color: white;
+  font-size: 4rem;
+}
+
+.btn-primary {
+
+<svg width="180" height="180" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A5AFF"/>
+      <stop offset="100%" stop-color="#4ADE80"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="100" cy="100" r="90" stroke="url(#grad)" stroke-width="12" fill="none"/>
+  <path d="M60 120 Q100 40 140 120 Q100 160 60 120 Z" fill="url(#grad)" opacity="0.8"/>
+  <circle cx="100" cy="95" r="12" fill="#fff"/>
+</svg>
