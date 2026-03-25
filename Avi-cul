@@ -463,3 +463,176 @@ body {
   <path d="M60 120 Q100 40 140 120 Q100 160 60 120 Z" fill="url(#grad)" opacity="0.8"/>
   <circle cx="100" cy="95" r="12" fill="#fff"/>
 </svg>
+app/
+ ├── App.js
+ ├── app.json
+ ├── babel.config.js
+ ├── package.json
+ │
+ ├── screens/
+ │    ├── HomeScreen.js
+ │    ├── LoginScreen.js
+ │    ├── RegistroScreen.js
+ │    ├── OnboardingScreen.js
+ │    ├── ChatScreen.js
+ │    ├── ChatSalaScreen.js
+ │    ├── TecnicoCampoScreen.js
+ │    ├── ChecklistBioseguridadScreen.js
+ │    ├── NecropsiaARScreen.js
+ │    ├── IAPorTextoScreen.js
+ │    ├── IAPorImagenScreen.js
+ │    ├── ReproductorasHomeScreen.js
+ │    ├── RegistroPosturaScreen.js
+ │    ├── FertilidadScreen.js
+ │    ├── HatcheryScreen.js
+ │    ├── PesoScreen.js
+ │    ├── AyudaScreen.js
+ │
+ ├── components/
+ │    ├── ChatBubble.js
+ │    ├── ImageMessage.js
+ │    ├── MenuCard.js
+ │
+ ├── services/
+ │    ├── firebaseConfig.js
+ │    ├── auth.js
+ │    ├── chatService.js
+ │    ├── storageService.js
+ │    ├── gps.js
+ │    ├── iaTexto.js
+ │    ├── iaImagen.js
+ │    ├── reproductoras.js
+ │
+ ├── assets/
+ │    ├── logo.png
+ │    ├── icon.png
+ │
+ ├── theme/
+ │    └── colors.js
+ │
+ └── utils/
+      └── validators.js
+
+{
+  "name": "av": "expo start --web"  "name": "avicolax-app",
+  },
+  "dependencies": {
+    "expo": "^51.0.0",
+    "expo-location": "~17.0.0",
+    "expo-camera": "~15.0.0",
+    "expo-gl": "~13.0.0",
+    "expo-three": "^7.0.0",
+    "expo-ar": "~4.0.0",
+    "expo-image-picker": "~16.0.0",
+    "expo-sharing": "~12.0.0",
+    "firebase": "10.8.0",
+    "react": "18.2.0",
+    "react-native": "0.74.0",
+    "react-native-gesture-handler": "~2.12.0",
+    "react-native-safe-area-context": "4.8.0",
+    "react-native-screens": "~3.30.0"
+  }
+}
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+
+{
+  "expo": {
+    "name": "AvicolaX",
+    "slug": "avicolaX",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    }
+  }
+}
+
+module.exports = function(api) {
+  api.cache(true);
+  return {
+    presets: ["babel-preset-expo"]
+  };
+};
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
+import RegistroScreen from "./screens/RegistroScreen";
+import OnboardingScreen from "./screens/OnboardingScreen";
+
+import ChatScreen from "./screens/ChatScreen";
+import ChatSalaScreen from "./screens/ChatSalaScreen";
+
+import TecnicoCampoScreen from "./screens/TecnicoCampoScreen";
+import ChecklistBioseguridadScreen from "./screens/ChecklistBioseguridadScreen";
+
+import NecropsiaARScreen from "./screens/NecropsiaARScreen";
+import IAPorTextoScreen from "./screens/IAPorTextoScreen";
+import IAPorImagenScreen from "./screens/IAPorImagenScreen";
+
+import ReproductorasHomeScreen from "./screens/ReproductorasHomeScreen";
+import RegistroPosturaScreen from "./screens/RegistroPosturaScreen";
+import FertilidadScreen from "./screens/FertilidadScreen";
+import HatcheryScreen from "./screens/HatcheryScreen";
+import PesoScreen from "./screens/PesoScreen";
+
+import AyudaScreen from "./screens/AyudaScreen";
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: true }}>
+
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Registro" component={RegistroScreen} />
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+
+        <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="ChatSala" component={ChatSalaScreen} />
+
+        <Stack.Screen name="Campo" component={TecnicoCampoScreen} />
+        <Stack.Screen name="Checklist" component={ChecklistBioseguridadScreen} />
+
+        <Stack.Screen name="NecropsiaAR" component={NecropsiaARScreen} />
+        <Stack.Screen name="IATexto" component={IAPorTextoScreen} />
+        <Stack.Screen name="IAImagen" component={IAPorImagenScreen} />
+
+        <Stack.Screen name="Reproductoras" component={ReproductorasHomeScreen} />
+        <Stack.Screen name="RegistroPostura" component={RegistroPosturaScreen} />
+        <Stack.Screen name="Fertilidad" component={FertilidadScreen} />
+        <Stack.Screen name="Hatchery" component={HatcheryScreen} />
+        <Stack.Screen name="Pesos" component={PesoScreen} />
+
+        <Stack.Screen name="Ayuda" component={AyudaScreen} />
+
+      </Stack.Navigator>
+
+    </NavigationContainer>
+  );
+}
